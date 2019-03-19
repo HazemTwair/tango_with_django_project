@@ -1,0 +1,38 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    User Profiles
+{% endblock %}
+
+{% block body_block %}
+<h1>User Profiles</h1>
+
+<div class="panel">
+    {% if userprofile_list %}
+    <div class="panel-heading">
+        <!-- Display search results in an ordered list -->
+        <div class="panel-body">
+            <div class="list-group">
+                {% for listuser in userprofile_list %}
+                <div class="list-group-item">
+                    <h4 class="list-group-item-heading">
+                        <img src="{{ MEDIA_URL }}{{ listuser.picture }}"
+                            width="64"
+                            height="64"
+                            onerror="this.src='https://s3.amazonaws.com/codechef_shared/sites/default/files/uploads/pictures/ec97df1172f26ad800e6efef61100387.png'"
+                            alt="{{selecteduser.username}}" />
+                        <a href="{% url 'profile' listuser.user.username %}">
+                            {{ listuser.user.username }}</a>
+                    </h4>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <p>There are no users for the site.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
